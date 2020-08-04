@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--引入外部配置文件，配置文件优先于增加属性配置-->
+    <properties resource="db.properties">
+    </properties>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--是否开启自动驼峰命名规则（camel case）映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--扫描实体类的包，它的默认别名就为这个类的类名，首字母小写-->
+    <typeAliases>
+        <package name="com.kuang.pojo"/>
+    </typeAliases>
+    <!--总结：第一种可以DIY别名，第二种则不行，如果非要改，需要在实体上增加注解@Alias-->
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper class="com.kuang.dao.BlogMapper"/>
+    </mappers>
+</configuration>
